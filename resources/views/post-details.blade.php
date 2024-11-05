@@ -1,4 +1,4 @@
-@extends('layouts.home')
+@extends('layouts.app')
 @section('title', $post->title)
 @section('description', $post->title)
 @section('keywords', $post->tags)

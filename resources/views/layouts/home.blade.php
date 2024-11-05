@@ -106,13 +106,13 @@
     <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="{{ asset('css/style.min.css') }}?{{ time() }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}?{{ time() }}" rel="stylesheet">
     <style>
         body {
             font-family: "EB Garamond", serif;
             font-optical-sizing: auto;
             font-style: normal;
-            background-color: #327e34;
+            background-color: var(--primary);
         }
 
         /* Custom tooltip style */
@@ -138,7 +138,7 @@
         } */
 
         .main-bg {
-            background-color: #f2f2f2;
+            background-color: var(--bodyBackground);
         }
 
         .layover {
@@ -177,7 +177,7 @@
             border-top-left-radius: 25px;
             border-bottom-left-radius: 25px;
             border: 0;
-            background-color: #f2f2f2;
+            background-color: var(--bodyBackground);
 
         }
 
@@ -186,7 +186,7 @@
             border-bottom-right-radius: 25px;
             color: var(--primaryColor) !important;
             border: 0;
-            background-color: #f2f2f2;
+            background-color: var(--bodyBackground);
         }
 
 
@@ -415,13 +415,13 @@
         }
 
         .navbar-light .navbar-nav .nav-link {
-            color: #327e34;
+            color: var(--primary);
             border-bottom: 3px transparent;
             background-color: #fff;
         }
 
         .navbar-light .navbar-nav .nav-link:hover {
-            color: #327e34;
+            color: var(--primary);
             border-bottom: 3px solid;
             background-color: #fff;
             transition: 0.3s ease-in-out;
@@ -429,7 +429,7 @@
         }
 
         .navbar-light .navbar-nav .nav-link.active {
-            color: #327e34;
+            color: var(--primary);
             border-bottom: 3px solid;
             font-weight: 700;
             background-color: #fff;
@@ -617,10 +617,10 @@
                         <div class="input-group ml-auto searc-bar"
                             style="width: 100%;max-width: 300px;/* border: 0px; */">
                             <input type="text" class="form-control search-input" placeholder="Keyword"
-                                style="border-top-left-radius: 25px;border-bottom-left-radius: 25px;border: 0;background-color: #f2f2f2;">
+                                style="border-top-left-radius: 25px;border-bottom-left-radius: 25px;border: 0;background-color: var(--bodyBackground);">
                             <div class="input-group-append">
                                 <button class="input-group-text text-secondary search-button"
-                                    style="border-top-right-radius: 25px;border-bottom-right-radius: 25px;color: var(--primaryColor) !important;border: 0;background-color: #f2f2f2;"><i
+                                    style="border-top-right-radius: 25px;border-bottom-right-radius: 25px;color: var(--primaryColor) !important;border: 0;background-color: var(--bodyBackground);"><i
                                         class="fa fa-search"></i></button>
                             </div>
                         </div>

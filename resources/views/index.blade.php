@@ -1,4 +1,4 @@
-@extends('layouts.home')
+@extends('layouts.app')
 
 @section('content')
     <!-- Top News Slider Start -->
@@ -166,7 +166,7 @@
                         @endforeach
                     </div>
 
-                   
+
 
 
                 </div>

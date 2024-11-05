@@ -1,4 +1,4 @@
-@extends('layouts.home')
+@extends('layouts.app')
 @section('title', $title)
 
 @section('content')

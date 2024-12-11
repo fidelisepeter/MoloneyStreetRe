@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Welcome | Notika - Notika Admin Template</title>
+    <title>@yield('title', 'Welcome') - {{ setting()->get('title', 'MoloneyStreetRe') }}</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="@yield('description', setting()->get('site_description'))" />
@@ -60,9 +60,10 @@
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}" />
     <!-- owl.carousel CSS
   ============================================ -->
-    <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/owl.theme.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/owl.transitions.css') }}" />
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/js/owlcarousel/dist/assets/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/js/owlcarousel/dist/assets/owl.theme.default.min.css') }}">
+
     <!-- meanmenu CSS
   ============================================ -->
     <link rel="stylesheet" href="{{ asset('assets/css/meanmenu/meanmenu.min.css') }}?{{ time() }}" />
@@ -155,6 +156,21 @@
 
         }
 
+        :root {
+            --site-name: {{ setting()->get('site_name', 'MoloneyStreetRe') }};
+        }
+
+        .card {
+            border: 0;
+            background: var(--body-bg-lighter);
+            color: var(--text-color);
+        }
+
+        .bg-light {
+            background: var(--body-bg-light);
+            color: var(--text-color);
+        }
+
 
         .owl-carousel .owl-nav {
             position: absolute;
@@ -187,8 +203,8 @@
         .owl-carousel .owl-nav .owl-prev:hover,
         .owl-carousel .owl-nav .owl-next:hover {
             color: #ffffff;
-            background: var(--primary);
-            border-color: var(--primary);
+            background: var(--color-primary);
+            border-color: var(--color-primary);
         }
 
         .owl-carousel-1 .owl-nav {
@@ -284,7 +300,7 @@
 
         .team-carousel .owl-dot.active,
         .testimonial-carousel .owl-dot.active {
-            background: var(--primary);
+            background: var(--color-primary);
         }
 
         .team-item .team-overlay {
@@ -552,6 +568,7 @@
             /* Hold position to create pause */
         }
     </style>
+    @yield('styles')
 </head>
 
 <body>
@@ -601,7 +618,7 @@
     <script src="{{ asset('assets/js/jquery-price-slider.js') }}"></script>
     <!-- owl.carousel JS
   ============================================ -->
-    <script src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('assets/js/owlcarousel/dist/owl.carousel.min.js') }}"></script>
     <!-- scrollUp JS
   ============================================ -->
     <script src="{{ asset('assets/js/jquery.scrollUp.min.js') }}"></script>
@@ -657,6 +674,36 @@
     <!-- tawk chat JS
   ============================================ -->
     <script src="{{ asset('assets/js/tawk-chat.js') }}"></script>
+    <script>
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     const bgColor = getComputedStyle(document.documentElement).getPropertyValue('--body-bg-lighter').trim()
+        //         .slice(1) || 'eaedf9';
+        //     const textColor = getComputedStyle(document.documentElement).getPropertyValue('--text-color').trim()
+        //         .slice(1) || '3c5cec';
+
+        //     document.querySelectorAll('img').forEach(img => {
+        //         img.onerror = function() {
+        //             if (!this.dataset.fallbackSet) {
+        //                 // Get the current width and height of the image
+        //                 const width = this.offsetWidth || 150; // Default width if none set
+        //                 const height = this.offsetHeight || 150; // Default height if none set
+
+        //                 // Construct the fallback URL with dimensions
+        //                 const fallbackSrc =
+        //                     `https://via.placeholder.com/${width}x${height}/${bgColor}/${textColor}?text=noimage`;
+
+        //                 // Set the fallback image
+        //                 this.src = fallbackSrc;
+        //                 this.dataset.fallbackSet = "true"; // Avoid infinite loop
+        //             }
+        //         };
+        //     });
+        // });
+    </script>
+
+
+    @yield('scripts')
+
 </body>
 
 </html>

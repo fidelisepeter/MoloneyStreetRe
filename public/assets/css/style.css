@@ -581,6 +581,7 @@ ul.notika-menu-wrap li a {
 }
 .custom-menu-content ul.notika-main-menu-dropdown li {
   display: inline-block;
+  Border-bottom: 2px solid transparent;
 }
 .custom-menu-content ul.notika-main-menu-dropdown li a {
   padding: 20px 20px;
@@ -601,6 +602,11 @@ ul.notika-menu-wrap li a {
   color: var(--color-dark);
   padding: 10px 20px;
 }
+
+.custom-menu-content ul.notika-main-menu-dropdown li.active {
+  border-color: var(--color-primary);
+}
+
 .animated {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;

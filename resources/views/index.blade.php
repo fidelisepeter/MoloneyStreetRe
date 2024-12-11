@@ -14,7 +14,7 @@
     </div> --}}
 
     <!-- Main News Slider Start -->
-    @include('home-components.main-news-slider')
+    {{-- @include('home-components.main-news-slider') --}}
     <!-- Main News Slider End -->
 
 

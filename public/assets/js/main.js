@@ -1,5 +1,75 @@
 (function ($) {
     "use strict";
+    function getCSSVariableValue(variableName) {
+        return getComputedStyle(document.documentElement)
+            .getPropertyValue(variableName)
+            .trim();
+    }
+
+    function createPlaceholder(width, height, text) {
+        // Get dynamic colors
+        const bgColor = getCSSVariableValue("--body-bg-lighter") || "#eaedf9";
+        const textColor =
+            getCSSVariableValue("--color-secondary-lighter") || "#3c5cec";
+
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext("2d");
+
+        // Solid Background
+        ctx.fillStyle = bgColor;
+        ctx.fillRect(0, 0, width, height);
+
+        // Watermark Text
+        ctx.globalAlpha = 0.5; // Slightly transparent watermark
+        ctx.fillStyle = textColor;
+
+        // Adjust font size for better visibility
+        const fontSize = Math.max(Math.min(width, height) / 4, 16); // Dynamic size, min 16px
+        ctx.font = `${fontSize}px 'Arial', sans-serif`; // Adjust font-family as desired
+
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        // Add text to the center of the canvas
+        ctx.fillText(text, width / 2, height / 2);
+
+        return canvas.toDataURL();
+    }
+
+    function updateImageFallbacks() {
+        const siteName =
+            getCSSVariableValue("--site-name") || "No image available";
+
+        $("img").each(function () {
+            const $img = $(this);
+            const width = $img.width() || 150;
+            const height = $img.height() || 150;
+
+            // Generate a new placeholder with the updated colors and text
+            const placeholder = createPlaceholder(width, height, siteName);
+
+            // Update the image's fallback source
+            if (!$img.data("fallbackSet")) {
+                $img.on("error", function () {
+                    $img.attr("src", placeholder).data("fallbackSet", true);
+                });
+
+                // Trigger fallback if the image is already broken
+                if (!this.complete || this.naturalWidth === 0) {
+                    $img.attr("src", placeholder).data("fallbackSet", true);
+                }
+            } else {
+                // Force update for already broken images
+                if ($img.attr("src") === placeholder) {
+                    $img.attr("src", ""); // Clear to trigger re-render
+                }
+                $img.attr("src", placeholder);
+            }
+        });
+    }
 
     const theme = localStorage.getItem("theme") || "light";
     const html = document.documentElement;
@@ -15,6 +85,7 @@
         theme_switcher.find("span").text("Light");
         html.setAttribute("data-theme", "dark");
     }
+    updateImageFallbacks();
 
     $(".chosen")[0] &&
         $(".chosen").chosen({
@@ -315,19 +386,6 @@
         scrollSpeed: 900,
         animation: "fade",
     });
-    // $(window).on("load", function () {
-    //     const theme = localStorage.getItem("theme") || "light";
-    //     const theme_switcher = $(".theme-switcher");
-    //     if (theme == "light") {
-    //         theme_switcher.removeClass("dark-theme");
-    //         theme_switcher.find("i").addClass("bi-sun").removeClass("bi-move");
-    //         theme_switcher.find("span").text("Dark");
-    //     } else {
-    //         theme_switcher.addClass("dark-theme");
-    //         theme_switcher.find("i").addClass("bi-moon").removeClass("bi-sun");
-    //         theme_switcher.find("span").text("Light");
-    //     }
-    // });
 
     $(".theme-switcher").on("click", function () {
         if ($(this).hasClass("dark-theme")) {
@@ -343,6 +401,7 @@
             localStorage.setItem("theme", "dark");
             document.documentElement.setAttribute("data-theme", "dark");
         }
+        updateImageFallbacks();
     });
 
     const ctx = document.getElementById("myRadarChart").getContext("2d");
@@ -370,4 +429,9 @@
             },
         },
     });
+
+    // Initial setup
+    // $(document).ready(function () {
+    //     updateImageFallbacks();
+    // });
 })(jQuery);

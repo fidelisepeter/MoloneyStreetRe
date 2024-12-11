@@ -15,7 +15,7 @@ use App\Http\Controllers\ClassificationController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [HomeController::class, 'index2'])->name('home.index');
 Route::get('/about', [HomeController::class, 'about'])->name('home.about');
-Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
+Route::get('/contact-us', [HomeController::class, 'contact'])->name('home.contact');
 
 
 
@@ -290,4 +290,6 @@ Route::prefix('classifications')->group(function () {
     Route::delete('/{classification}', [ClassificationController::class, 'destroy'])->name('classifications.destroy');
 });
 
-Route::get('/{slug}', [PostController::class, 'get'])->name('show');
+
+Route::get('/news/categories', [CategoryController::class, 'index'])->name('categories.index');
+Route::get('/news/{slug}', [PostController::class, 'get'])->name('show');

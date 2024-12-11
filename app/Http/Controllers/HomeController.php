@@ -24,7 +24,7 @@ class HomeController extends Controller
         $latestNews = $posts->where('classification.slug', 'latest-news');
         $featuredNews = $posts->where('classification.slug', 'featured-news');
 
-        $categories = Category::limit(4)->get();
+        $categories = Category::limit(5)->get();
 
         // Pass data to the view
         return view('main.index', [

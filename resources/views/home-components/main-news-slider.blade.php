@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
-                <div class="owl-carousel owl-carousel-2 carousel-item-1 position-relative mb-3 mb-lg-0">
+                {{-- <div class="owl-carousel owl-carousel-2 carousel-item-1 position-relative mb-3 mb-lg-0">
                     @forelse ($latestNews as $latest)
                         <div class="position-relative overflow-hidden" style="height: 435px;">
                             <img class="img-fluid h-100" src="{{ asset($latest->image) }}"
@@ -46,7 +46,50 @@
                     @endforelse
 
 
+                </div> --}}
+                <div class="owl-carouseld owl-carousel-2s carousel-item-1s position-relative mb-3 mb-lg-0">
+                    @forelse ($latestNews as $latest)
+                        <div class="position-relative overflow-hidden" style="height: 435px;">
+                            <img class="img-fluid h-100" src="{{ asset($latest->image) }}"
+                                onerror="this.src='https://via.placeholder.com/700x435?text={{ setting()->get('site_name', 'Image not Available') }}';"
+                                style="object-fit: cover;">
+                            <div class="overlay">
+                                <div class="d-flex align-items-center">
+                                    <div class="has-video">
+                                        <a href="" class="video-button">
+                                            <i class="fa fa-play"></i>
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <div class="mb-1">
+                                            <a class="text-white" href="">{{ $latest->category->title }}</a>
+                                            <span class="px-2 text-white">/</span>
+                                            <a class="text-white" href="">
+                                                {{ \Carbon\Carbon::parse($latest->created_at)->format('F d, Y') }}
+                                            </a>
+                                        </div>
+                                        <a class="h2 m-0 text-white font-weight-bold"
+                                            href="{{ route('show', $latest) }}">{{ $latest->title }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="position-relative overflow-hidden" style="height: 435px;">
+                            <img class="img-fluid h-100"
+                                src="https://via.placeholder.com/700x435?text={{ setting()->get('site_name', 'No News Found') }}"
+                                style="object-fit: cover;">
+                            <div class="overlay">
+                                <div class="mb-1">
+                                    <a class="text-white" href="">No News Found</a>
+                                </div>
+                                <a class="h2 m-0 text-white font-weight-bold"
+                                    href="{{ route('show', 'top-news') }}">Click Here for Details</a>
+                            </div>
+                        </div>
+                    @endforelse
                 </div>
+
             </div>
             <div class="col-lg-4">
                 <a href="{{ route('categories.index') }}" class="text-decoration-none" data-toggle="tooltip"

@@ -4,20 +4,25 @@ use App\Models\Post;
 use GuzzleHttp\Client;
 use App\Models\Category;
 use App\Models\Classification;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\YouTubeController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ClassificationController;
 
+Auth::routes();
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/home', [HomeController::class, 'index2'])->name('home.index');
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/about', [HomeController::class, 'about'])->name('home.about');
 Route::get('/contact-us', [HomeController::class, 'contact'])->name('home.contact');
 
-
+// Route::get('/login', [LoginController::class, 'contact'])->name('home.contact');
 
 Route::get('/create-domo-posts', function () {
     $images = [
@@ -291,5 +296,13 @@ Route::prefix('classifications')->group(function () {
 });
 
 
-Route::get('/news/categories', [CategoryController::class, 'index'])->name('categories.index');
+Route::get('/news/categories', [PostController::class, 'categories'])->name('categories.index');
 Route::get('/news/{slug}', [PostController::class, 'get'])->name('show');
+
+Route::get('/youtube', [YouTubeController::class, 'fetchAllVideos'])->name('youtube.index');
+Route::get('/youtube/playlist', [YouTubeController::class, 'fetchPlaylists'])->name('youtube.playlist');
+Route::get('/youtube/trending', [YouTubeController::class, 'getTrendingVideos'])->name('youtube.trending');
+Route::get('/youtube/playlist/{id}', [YouTubeController::class, 'viewPlaylistVideos'])->name('youtube.playlist.view');
+// Route::get('/youtube/category/{id}', [YouTubeController::class, 'fetchVideosByCategory'])->name('youtube.index');
+// Route::get('/   ', [YouTubeController::class, 'fetchAllVideos']);
+Route::get('/youtube/video/{id}', [YouTubeController::class, 'showVideo'])->name('youtube.view');

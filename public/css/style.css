@@ -65,13 +65,8 @@ section {
 }
 
 body {
-    margin: 0;
-    font-family: "Roboto", sans-serif;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #6c757d;
-    text-align: left;
+    margin: 0; 
+    line-height: 1.8;   
     background-color: var(--bodyBackground);
 }
 
@@ -391,7 +386,6 @@ h6,
     margin-bottom: 0.5rem;
     font-weight: 500;
     line-height: 1.2;
-    color: #343a40;
 }
 
 h1,
@@ -1991,8 +1985,8 @@ pre code {
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
+    color:  var(--text-color);
+    background-color: var(--body-bg);
     background-clip: padding-box;
     border: 1px solid #ced4da;
     border-radius: 0;
@@ -2016,8 +2010,8 @@ pre code {
 }
 
 .form-control:focus {
-    color: #495057;
-    background-color: #fff;
+    color: var(--text-color);
+    background-color: var(--body-bg);
     border-color: #f69296;
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(237, 28, 36, 0.25);
@@ -3272,7 +3266,7 @@ input[type="button"].btn-block {
     color: #6c757d;
     text-align: left;
     list-style: none;
-    background-color: #fff;
+    background-color: var(--body-bg-light);
     background-clip: padding-box;
     border: 1px solid rgba(0, 0, 0, 0.15);
 }

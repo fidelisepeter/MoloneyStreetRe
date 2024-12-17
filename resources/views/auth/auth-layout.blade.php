@@ -89,6 +89,9 @@
     <!-- wave CSS
   ============================================ -->
     <link rel="stylesheet" href="{{ asset('assets/css/wave/waves.min.css') }}" />
+    <!-- Notika icon CSS
+  ============================================ -->
+    <link rel="stylesheet" href="{{ asset('css/notika-custom-icon.css') }}">
     <!-- main CSS
   ============================================ -->
     <!-- <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}"> -->
@@ -587,31 +590,59 @@
         your experience.
       </p>
     <![endif]-->
-    <!-- Start Header Top Area -->
-    @include('layouts.header.index')
-    <!-- End Header Top Area -->
 
-    @include('layouts.menus.index')
-    <div class="container">
+
+
+    <div class="login-content">
         @yield('content')
-    </div>
-
-    <!-- Start Footer area-->
-    <div class="footer-copyright-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="footer-copy-right">
-                        <p>
-                            Copyright © 2018 . All rights reserved. Crafted with Care by
-                            <a href="#">Alresia </a>.
-                        </p>
-                    </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="footer-copy-right">
+                    <p style="color: var(--color-white)">
+                        Copyright © 2018 . All rights reserved. Crafted with Care by
+                        <a href="#" class="fw-bolder"
+                            style="color: var(--color-white); text-decoration: none; font-weight:900;">Alresia </a>.
+                    </p>
                 </div>
             </div>
         </div>
     </div>
-    <!-- End Footer area-->
+
+
+    <!-- jquery
+  ============================================ -->
+    <script src="{{ asset('assets/js/vendor/jquery-1.12.4.min.js') }}"></script>
+    <!-- bootstrap JS
+  ============================================ -->
+    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+    <!-- wow JS
+  ============================================ -->
+    <script src="{{ asset('assets/js/wow.min.js') }}"></script>
+    </p>
+    </div>
+    </div>
+    </div>
+    </div>
+
+
+    <!-- jquery
+  ============================================ -->
+    <script src="{{ asset('assets/js/vendor/jquery-1.12.4.min.js') }}"></script>
+    <!-- bootstrap JS
+  ============================================ -->
+    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+    <!-- wow JS
+  ============================================ -->
+    <script src="{{ asset('assets/js/wow.min.js') }}"></script>
+    <!-- price-slider JS
+  ============================================ -->
+    </p>
+    </div>
+    </div>
+    </div>
+    </div>
+
+
     <!-- jquery
   ============================================ -->
     <script src="{{ asset('assets/js/vendor/jquery-1.12.4.min.js') }}"></script>
@@ -682,32 +713,6 @@
     <!-- tawk chat JS
   ============================================ -->
     <script src="{{ asset('assets/js/tawk-chat.js') }}"></script>
-    <script>
-        // document.addEventListener('DOMContentLoaded', function() {
-        //     const bgColor = getComputedStyle(document.documentElement).getPropertyValue('--body-bg-lighter').trim()
-        //         .slice(1) || 'eaedf9';
-        //     const textColor = getComputedStyle(document.documentElement).getPropertyValue('--text-color').trim()
-        //         .slice(1) || '3c5cec';
-
-        //     document.querySelectorAll('img').forEach(img => {
-        //         img.onerror = function() {
-        //             if (!this.dataset.fallbackSet) {
-        //                 // Get the current width and height of the image
-        //                 const width = this.offsetWidth || 150; // Default width if none set
-        //                 const height = this.offsetHeight || 150; // Default height if none set
-
-        //                 // Construct the fallback URL with dimensions
-        //                 const fallbackSrc =
-        //                     `https://via.placeholder.com/${width}x${height}/${bgColor}/${textColor}?text=noimage`;
-
-        //                 // Set the fallback image
-        //                 this.src = fallbackSrc;
-        //                 this.dataset.fallbackSet = "true"; // Avoid infinite loop
-        //             }
-        //         };
-        //     });
-        // });
-    </script>
 
 
     @yield('scripts')

@@ -1,9 +1,9 @@
 <div class="media mb-4">
     <img src="{{ asset('img/image-placeholder.png') }}" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
     <div class="media-body">
-        <h6><a href="" class="font-weight-bolder">{{ $comment->user_name }}</a>
-            <small><i>{{ \Carbon\Carbon::parse($comment->created_at)->format('F d, Y') }}</i></small>
-        </h6>
+        <h5><a href="" class="font-weight-bolder">{{ $comment->user_name }}</a>
+            <small>{{ \Carbon\Carbon::parse($comment->created_at)->format('F d, Y') }}</small>
+        </h5>
         <p>{{ $comment->content }}</p>
         <button class="btn btn-sm btn-outline-secondary" onclick="toggleReplyForm({{ $comment->id }})">Reply</button>
 
@@ -12,20 +12,22 @@
                 @csrf
                 <input type="hidden" name="parent_id" value="{{ $comment->id }}">
                 {{-- <input type="hidden" name="post_id" value="{{ $comment->post_id }}"> --}}
-                <div class="form-group">
+                <div class="form-group nk-int-st">
                     <label for="name">Name *</label>
                     <input type="text" name="name" class="form-control" required>
                 </div>
-                <div class="form-group">
+                <div class="form-group nk-int-st">
                     <label for="email">Email *</label>
                     <input type="email" name="email" class="form-control" required>
                 </div>
-                <div class="form-group">
+                <div class="form-group nk-int-st">
                     <label for="message">Message *</label>
                     <textarea name="message" cols="30" rows="2" class="form-control" required></textarea>
                 </div>
-                <div class="form-group mb-0">
-                    <input type="submit" value="Reply" class="btn btn-primary font-weight-semi-bold py-2 px-3">
+                <div class="form-group nk-int-st mb-0">
+                    <button type="submit" class="btn btn-success notika-btn-success waves-effect">
+                        Reply </button>
+
                 </div>
             </form>
         </div>

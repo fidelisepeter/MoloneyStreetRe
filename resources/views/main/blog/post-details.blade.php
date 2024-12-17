@@ -38,6 +38,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- Post Detail End -->
 
             @if ($post->comments->count() > 0)
@@ -46,7 +47,7 @@
                     <h3 class="mb-4">{{ $post->comments->count() }} Comments</h3>
 
                     @foreach ($post->comments->where('parent_id', null) as $comment)
-                        @include('partials.comment', ['comment' => $comment])
+                        @include('main.blog.partials.comment', ['comment' => $comment])
                     @endforeach
                 </div>
                 <!-- Comment List End -->
@@ -90,8 +91,9 @@
                         </div>
 
                         <div class="form-group mb-0">
-                            <input type="submit" value="Leave a comment"
+                            <button type="submit" value="Leave a comment"
                                 class="btn btn-success notika-btn-success waves-effect">
+                                Leave a comment </button>
                         </div>
                     </form>
                 </div>
@@ -129,25 +131,28 @@
                             <span class="px-1">/</span>
                             <span>{{ \Carbon\Carbon::parse($related->created_at)->format('F d, Y') }}</span>
                         </div>
-                        <a class="h6 m-0" href="{{ route('show', $related) }}" data-toggle="tooltip"
-                            data-title="{{ $related->title }}">{{ Str::limit($related->title, 25) }}</a>
+                        <a class="h5 m-0" href="{{ route('show', $related) }}" data-toggle="tooltip"
+                            data-title="{{ $related->title }}">{{ Str::limit($related->title, 55) }}</a>
                     </div>
                 </div>
             @endforeach
+
+            <!-- Tags Start -->
+            <div class="pb-3">
+                <div class="bg-light py-2 px-4 mb-3">
+                    <div class="d-flex flex-wrap m-n1">
+                        <h3 class="m-0 mr-4">Tags</h3>
+                        @foreach (explode(',', $post->tags) as $tag)
+                            <a href="javascript:;"
+                                class="btn btn-sm btn-outline-secondary m-1">{{ ucfirst(trim($tag)) }}</a>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+            <!-- Tags End -->
         </div>
         <!-- Related Category Post End -->
-        <!-- Tags Start -->
-        <div class="pb-3">
-            <div class="bg-light py-2 px-4 mb-3">
-                <h3 class="m-0">Tags</h3>
-            </div>
-            <div class="d-flex flex-wrap m-n1">
-                @foreach (explode(',', $post->tags) as $tag)
-                    <a href="javascript:;" class="btn btn-sm btn-outline-secondary m-1">{{ ucfirst(trim($tag)) }}</a>
-                @endforeach
-            </div>
-        </div>
-        <!-- Tags End -->
+
 
     </div>
 

@@ -3295,13 +3295,14 @@ hr {
 .nk-int-st input[type="text"],
 .nk-int-st textarea,
 .nk-int-st [type="number"],
-.nk-int-st [type="password"] {
+.nk-int-st [type="password"],
+.nk-int-st [type="email"] {
   box-shadow: none;
   border-top: 0px solid #ccc;
   border-left: 0px solid #ccc;
   border-right: 0px solid #ccc;
   border-bottom: 1px solid #ccc;
-  padding: 0px;
+  padding: 15px 12px;
   resize: none;
   border-radius: 0px;
 }

@@ -17,7 +17,7 @@ return [
             'icon' => '<i class="bi bi-journal-text"></i>', // Bootstrap journal icon for blog
             'link' => '#',
             'auth_visibility' => 'all',
-            'active_if' => ['/*', '/news/*', '/categories/*'],
+            'active_if' => ['/news/*', '/categories/*'],
             'children' => [
                 ['title' => 'Latest News', 'link' => '/news/latest-news', 'auth_visibility' => 'all'],
                 ['title' => 'Featured', 'link' => '/news/featured-news', 'auth_visibility' => 'all'],
@@ -32,10 +32,11 @@ return [
             'icon' => '<i class="bi bi-youtube"></i>', // Bootstrap YouTube icon
             'link' => '#',
             'auth_visibility' => 'all',
+            'active_if' => ['/youtube/*'],
             'children' => [
-                ['title' => 'Latest Videos', 'link' => '#', 'auth_visibility' => 'all'],
-                ['title' => 'Top Trending', 'link' => '#', 'auth_visibility' => 'all'],
-                ['title' => 'Playlists', 'link' => '#', 'auth_visibility' => true],
+                ['title' => 'Latest Videos', 'link' => '/youtube', 'auth_visibility' => 'all', 'active_if' => ['/youtube/video/*']],
+                ['title' => 'Top Trending', 'link' => '/youtube/trending', 'auth_visibility' => 'all', 'active_if' => ['/youtube/trending/*']],
+                ['title' => 'Playlists', 'link' => '/youtube/playlist', 'auth_visibility' => true, 'active_if' => ['/youtube/playlist/*']],
             ],
         ],
         [

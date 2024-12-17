@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Classification;
 
-class PostController extends Controller
+class MainController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,6 +19,7 @@ class PostController extends Controller
         $posts = Post::all();
         return view('main.blog.posts', ['posts' => $posts, 'title' => 'All Posts']);
     }
+
     public function categories()
     {
         return view('main.blog.categories')->with([

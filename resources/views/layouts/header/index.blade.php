@@ -121,7 +121,7 @@
                             <div role="menu" class="dropdown-menu profile-dd animated zoomIn">
 
 
-                                <div class="dd-link"><a href="#">Sign in </a></div>
+                                <div class="dd-link"><a href="{{ route('login') }}">Sign in </a></div>
                                 <div class="divider"> </div>
                                 <div class="dd-link"><a href="#">Create an account</a></div>
                             </div>

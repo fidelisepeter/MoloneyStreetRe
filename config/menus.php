@@ -7,10 +7,12 @@ return [
             'icon' => '<i class="bi bi-house"></i>', // Bootstrap home icon
             'link' => '/',
             'auth_visibility' => 'guest',
-            // 'children' => [
-            //     ['title' => 'Welcome to MoloneyStreetRe: A financial markets melting platform', 'link' => '#', 'auth_visibility' => 'guest'],
-
-            // ],
+        ],
+        [
+            'title' => 'Dashboard',
+            'icon' => '<i class="bi bi-house"></i>', // Bootstrap home icon
+            'link' => '/dashboard',
+            'auth_visibility' => 'user',
         ],
         [
             'title' => 'Blog',

@@ -47,22 +47,32 @@
                     <nav id="dropdown">
                         <ul class="mobile-menu-nav">
                             @foreach ($menus as $menu)
-                                <li
-                                    class="{{ isActive($menu['link'], $menu['children'] ?? [], $menu['active_if'] ?? []) ? 'active' : '' }}">
-                                    <a href="{{ $menu['link'] }}">
-                                        {!! $menu['icon'] !!} {{ $menu['title'] }}
-                                    </a>
-                                    @if (!empty($menu['children']))
-                                        <ul class="collapse dropdown-header-top">
-                                            @foreach ($menu['children'] as $child)
-                                                <li
-                                                    class="{{ isActive($child['link'], [], $child['active_if'] ?? []) ? 'active' : '' }}">
-                                                    <a href="{{ $child['link'] }}">{{ $child['title'] }}</a>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    @endif
-                                </li>
+                                @if (
+                                    $menu['auth_visibility'] == 'all' ||
+                                        ($menu['auth_visibility'] == 'guest' && !Auth::check()) ||
+                                        ($menu['auth_visibility'] == 'user' && Auth::check()))
+                                    <li
+                                        class="{{ isActive($menu['link'], $menu['children'] ?? [], $menu['active_if'] ?? []) ? 'active' : '' }}">
+                                        <a href="{{ $menu['link'] }}">
+                                            {!! $menu['icon'] !!} {{ $menu['title'] }}
+                                        </a>
+                                        @if (!empty($menu['children']))
+                                            <ul class="collapse dropdown-header-top">
+                                                @foreach ($menu['children'] as $child)
+                                                    @if (
+                                                        $child['auth_visibility'] == 'all' ||
+                                                            ($child['auth_visibility'] == 'guest' && !Auth::check()) ||
+                                                            ($child['auth_visibility'] == 'user' && Auth::check()))
+                                                        <li
+                                                            class="{{ isActive($child['link'], [], $child['active_if'] ?? []) ? 'active' : '' }}">
+                                                            <a href="{{ $child['link'] }}">{{ $child['title'] }}</a>
+                                                        </li>
+                                                    @endif
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                    </li>
+                                @endif
                             @endforeach
                         </ul>
                     </nav>
@@ -80,40 +90,57 @@
             <div class="col-lg-12">
                 <ul class="nav nav-tabs notika-menu-wrap menu-it-icon-pro">
                     @foreach ($menus as $menu)
-                        <li
-                            class="{{ isActive($menu['link'], $menu['children'] ?? [], $menu['active_if'] ?? []) ? 'active' : '' }}">
-                            <a
-                                @if (!empty($menu['children'])) data-toggle="tab"
+                        @if (
+                            $menu['auth_visibility'] == 'all' ||
+                                ($menu['auth_visibility'] == 'guest' && !Auth::check()) ||
+                                ($menu['auth_visibility'] == 'user' && Auth::check()))
+                            <li
+                                class="{{ isActive($menu['link'], $menu['children'] ?? [], $menu['active_if'] ?? []) ? 'active' : '' }}">
+                                <a
+                                    @if (!empty($menu['children'])) data-toggle="tab"
                                 href="#{{ str_replace(' ', '', ucwords($menu['title'])) }}"
                                 @else
                                 href="{{ $menu['link'] }}" @endif>
-                                {!! $menu['icon'] !!} {{ $menu['title'] }}
-                            </a>
-                        </li>
+                                    {!! $menu['icon'] !!} {{ $menu['title'] }}
+                                </a>
+                            </li>
+                        @endif
                     @endforeach
                 </ul>
                 <div class="tab-content custom-menu-content">
 
                     @foreach ($menus as $menu)
-                        <div id="{{ str_replace(' ', '', ucwords($menu['title'])) }}"
-                            class="tab-pane in {{ isActive($menu['link'], $menu['children'] ?? [], $menu['active_if'] ?? []) ? 'active' : '' }} notika-tab-menu-bg animated flipInX  @if (empty($menu['children'])) marquee-container @endif">
-                            @if (!empty($menu['children']))
-                                <ul class="notika-main-menu-dropdown">
-                                    @foreach ($menu['children'] as $child)
-                                        <li class="{{ isActive($child['link'], [], $child['active_if'] ?? []) ? 'active' : '' }}">
-                                            <a href="{{ $child['link'] }}">{{ $child['title'] }}</a>
+                        @if (
+                            $menu['auth_visibility'] == 'all' ||
+                                ($menu['auth_visibility'] == 'guest' && !Auth::check()) ||
+                                ($menu['auth_visibility'] == 'user' && Auth::check()))
+                            <div id="{{ str_replace(' ', '', ucwords($menu['title'])) }}"
+                                class="tab-pane in {{ isActive($menu['link'], $menu['children'] ?? [], $menu['active_if'] ?? []) ? 'active' : '' }} notika-tab-menu-bg animated flipInX  @if (empty($menu['children'])) marquee-container @endif">
+                                @if (!empty($menu['children']))
+                                    <ul class="notika-main-menu-dropdown">
+                                        @foreach ($menu['children'] as $child)
+                                            @if (
+                                                $child['auth_visibility'] == 'all' ||
+                                                    ($child['auth_visibility'] == 'guest' && !Auth::check()) ||
+                                                    ($child['auth_visibility'] == 'user' && Auth::check()))
+                                                <li
+                                                    class="{{ isActive($child['link'], [], $child['active_if'] ?? []) ? 'active' : '' }}">
+                                                    <a href="{{ $child['link'] }}">{{ $child['title'] }}</a>
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <ul class="notika-main-menu-dropdown marquee">
+                                        <li
+                                            class="{{ isActive($child['link'], [], $child['active_if'] ?? []) ? 'active' : '' }}">
+                                            <a class="" href="{{ $child['link'] }}">
+                                                {!! implode('<span class="marquee-separator">..., </span>', $content) !!} </a>
                                         </li>
-                                    @endforeach
-                                </ul>
-                            @else
-                                <ul class="notika-main-menu-dropdown marquee">
-                                    <li class="{{ isActive($child['link'], [], $child['active_if'] ?? []) ? 'active' : '' }}">
-                                        <a class="" href="{{ $child['link'] }}">
-                                            {!! implode('<span class="marquee-separator">..., </span>', $content) !!} </a>
-                                    </li>
-                                </ul>
-                            @endif
-                        </div>
+                                    </ul>
+                                @endif
+                            </div>
+                        @endif
                     @endforeach
 
                 </div>

@@ -1,4 +1,5 @@
 @extends('auth.auth-layout')
+@section('title', 'Login to Your Account')
 
 @section('content')
     <div class="container py-5 h-100">

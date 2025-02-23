@@ -478,17 +478,24 @@
             position: absolute;
             top: 100%;
             left: -100px;
-            width: 200px;
+            max-width: 200px;
             border: none;
-            padding: 20px 0px;
+            padding: 0px;
             z-index: 9999;
         }
 
         .header-top-menu .nav.notika-top-nav .dd-link a {
-            padding: 0px 15px;
+            display: block;
+            padding: 6px 15px;
             color: var(--text-color);
             font-size: 12px;
+            width: 100%;
+            border-top: 1px solid #ededed;
         }
+
+        /* .header-top-menu .nav.notika-top-nav .profile-dd:nth-last-child() .dd-link a {
+            border: none;
+        } */
 
         .navbar-search {
             position: relative;

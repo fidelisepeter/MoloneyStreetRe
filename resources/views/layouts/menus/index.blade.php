@@ -36,6 +36,32 @@
 
         return false;
     }
+
+    function isVisible($menu = [])
+    {
+        if (
+            $menu['auth_visibility'] == 'all' ||
+            (((is_array($menu['auth_visibility']) && in_array('guest', $menu['auth_visibility'])) ||
+                $menu['auth_visibility'] == 'guest') &&
+                !Auth::check()) ||
+            (((is_array($menu['auth_visibility']) && in_array('user', $menu['auth_visibility'])) ||
+                $menu['auth_visibility'] == 'user') &&
+                Auth::check() &&
+                Auth::user()->type == 'user') ||
+            (((is_array($menu['auth_visibility']) && in_array('admin', $menu['auth_visibility'])) ||
+                $menu['auth_visibility'] == 'admin') &&
+                Auth::check() &&
+                Auth::user()->type == 'admin') ||
+            (((is_array($menu['auth_visibility']) && in_array('super_admin', $menu['auth_visibility'])) ||
+                $menu['auth_visibility'] == 'super_admin') &&
+                Auth::check() &&
+                Auth::user()->type == 'super_admin')
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 @endphp
 
 <!-- Mobile Menu Start -->
@@ -47,10 +73,7 @@
                     <nav id="dropdown">
                         <ul class="mobile-menu-nav">
                             @foreach ($menus as $menu)
-                                @if (
-                                    $menu['auth_visibility'] == 'all' ||
-                                        ($menu['auth_visibility'] == 'guest' && !Auth::check()) ||
-                                        ($menu['auth_visibility'] == 'user' && Auth::check()))
+                                @if (isVisible($menu))
                                     <li
                                         class="{{ isActive($menu['link'], $menu['children'] ?? [], $menu['active_if'] ?? []) ? 'active' : '' }}">
                                         <a href="{{ $menu['link'] }}">
@@ -59,10 +82,7 @@
                                         @if (!empty($menu['children']))
                                             <ul class="collapse dropdown-header-top">
                                                 @foreach ($menu['children'] as $child)
-                                                    @if (
-                                                        $child['auth_visibility'] == 'all' ||
-                                                            ($child['auth_visibility'] == 'guest' && !Auth::check()) ||
-                                                            ($child['auth_visibility'] == 'user' && Auth::check()))
+                                                    @if (isVisible($child))
                                                         <li
                                                             class="{{ isActive($child['link'], [], $child['active_if'] ?? []) ? 'active' : '' }}">
                                                             <a href="{{ $child['link'] }}">{{ $child['title'] }}</a>
@@ -90,10 +110,7 @@
             <div class="col-lg-12">
                 <ul class="nav nav-tabs notika-menu-wrap menu-it-icon-pro">
                     @foreach ($menus as $menu)
-                        @if (
-                            $menu['auth_visibility'] == 'all' ||
-                                ($menu['auth_visibility'] == 'guest' && !Auth::check()) ||
-                                ($menu['auth_visibility'] == 'user' && Auth::check()))
+                        @if (isVisible($menu))
                             <li
                                 class="{{ isActive($menu['link'], $menu['children'] ?? [], $menu['active_if'] ?? []) ? 'active' : '' }}">
                                 <a
@@ -110,19 +127,13 @@
                 <div class="tab-content custom-menu-content">
 
                     @foreach ($menus as $menu)
-                        @if (
-                            $menu['auth_visibility'] == 'all' ||
-                                ($menu['auth_visibility'] == 'guest' && !Auth::check()) ||
-                                ($menu['auth_visibility'] == 'user' && Auth::check()))
+                        @if (isVisible($menu))
                             <div id="{{ str_replace(' ', '', ucwords($menu['title'])) }}"
                                 class="tab-pane in {{ isActive($menu['link'], $menu['children'] ?? [], $menu['active_if'] ?? []) ? 'active' : '' }} notika-tab-menu-bg animated flipInX  @if (empty($menu['children'])) marquee-container @endif">
                                 @if (!empty($menu['children']))
                                     <ul class="notika-main-menu-dropdown">
                                         @foreach ($menu['children'] as $child)
-                                            @if (
-                                                $child['auth_visibility'] == 'all' ||
-                                                    ($child['auth_visibility'] == 'guest' && !Auth::check()) ||
-                                                    ($child['auth_visibility'] == 'user' && Auth::check()))
+                                            @if (isVisible($child))
                                                 <li
                                                     class="{{ isActive($child['link'], [], $child['active_if'] ?? []) ? 'active' : '' }}">
                                                     <a href="{{ $child['link'] }}">{{ $child['title'] }}</a>

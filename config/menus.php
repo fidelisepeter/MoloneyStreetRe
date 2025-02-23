@@ -6,14 +6,17 @@ return [
             'title' => 'Home',
             'icon' => '<i class="bi bi-house"></i>', // Bootstrap home icon
             'link' => '/',
-            'auth_visibility' => 'guest',
+            'auth_visibility' => 'all',
+            'children' => [
+                ['title' => 'Dashboard', 'link' => '/dashboard', 'auth_visibility' => ['user', 'admin', 'super_admin']],
+            ],
         ],
-        [
-            'title' => 'Dashboard',
-            'icon' => '<i class="bi bi-house"></i>', // Bootstrap home icon
-            'link' => '/dashboard',
-            'auth_visibility' => 'user',
-        ],
+        // [
+        //     'title' => 'Dashboard',
+        //     'icon' => '<i class="bi bi-house"></i>', // Bootstrap home icon
+        //     'link' => '/dashboard',
+        //     'auth_visibility' => ['guest', 'super_admin'],
+        // ],
         [
             'title' => 'Blog',
             'icon' => '<i class="bi bi-journal-text"></i>', // Bootstrap journal icon for blog
@@ -21,6 +24,10 @@ return [
             'auth_visibility' => 'all',
             'active_if' => ['/news/*', '/categories/*'],
             'children' => [
+                ['title' => 'Create Post', 'link' => '/news/create', 'auth_visibility' => ['user', 'admin', 'super_admin']],
+                ['title' => 'All Posts', 'link' => '/news', 'auth_visibility' => 'all'],
+                ['title' => 'Categories', 'link' => '/categories', 'auth_visibility' => 'all'],
+                ['title' => 'Tags', 'link' => '/tags', 'auth_visibility' => 'all'],
                 ['title' => 'Latest News', 'link' => '/news/latest-news', 'auth_visibility' => 'all'],
                 ['title' => 'Featured', 'link' => '/news/featured-news', 'auth_visibility' => 'all'],
                 ['title' => 'Trending', 'link' => '/news/trending-news', 'auth_visibility' => 'all'],

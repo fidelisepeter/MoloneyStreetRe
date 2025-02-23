@@ -478,19 +478,37 @@
             position: absolute;
             top: 100%;
             left: -100px;
-            max-width: 200px;
+            width: 165px;
+            /* max-width: 300px; */
             border: none;
             padding: 0px;
             z-index: 9999;
         }
 
         .header-top-menu .nav.notika-top-nav .dd-link a {
-            display: block;
+            display: flex;
+            align-items: center;
+            gap: 10px;
             padding: 6px 15px;
             color: var(--text-color);
             font-size: 12px;
             width: 100%;
             border-top: 1px solid #ededed;
+        }
+
+        .header-top-menu .nav.notika-top-nav .dd-link a i {
+            font-size: 14px;
+        }
+
+        .dd-img {
+            padding: 12px;
+        }
+
+        .dd-img img {
+            width: 80px;
+            height: 80px;
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
         }
 
         /* .header-top-menu .nav.notika-top-nav .profile-dd:nth-last-child() .dd-link a {

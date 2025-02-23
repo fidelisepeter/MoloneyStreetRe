@@ -113,17 +113,57 @@
                         </li>
 
                         <li class="nav-item nc-al">
-                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
-                                class="nav-link dropdown-toggle">
-                                <i class="bi bi-person"></i>
-                                <span class="notice-count notice-count-palse"><span>!</span></span>
-                            </a>
+
+                            @if (Auth::check())
+                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
+                                    class="nav-link dropdown-toggle d-flex gap-3">
+                                    <i class="bi bi-person"></i>
+                                    {{-- @if (Auth::check())
+                                        <div style="">
+                                            {{ Auth::user()->first_name }}
+                                        </div>
+                                    @endif --}}
+                                    {{-- <span class="notice-count notice-count-palse"><span>!</span></span> --}}
+                                </a>
+                            @else
+                                <a href="{{ route('login') }}" class="nav-link dropdown-toggle">
+                                    <i class="bi bi-person"></i>
+                                    <span class="notice-count notice-count-palse"><span>!</span></span>
+                                </a>
+                            @endif
+
+
                             <div role="menu" class="dropdown-menu profile-dd animated zoomIn">
 
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <div class="text-center mt-3">
+                                        <div class="dd-img" style="">
+                                            <img src="" alt="">
+                                        </div>
+                                        <div style="font-weight: 800; font-size: 1.4rem;margin: 0;">
+                                            {{ Auth::check() ? Auth::user()->first_name : 'Guest' }}
 
-                                <div class="dd-link"><a href="{{ route('login') }}">Sign in </a></div>
+                                        </div>
+                                        @if (Auth::check())
+                                            <div style="margin-top: 0; margin-bottom: 1rem;">
+                                                {{ Auth::user()->email }}
+                                            </div>
+                                        @endif
 
-                                <div class="dd-link"><a href="#">Create an account</a></div>
+                                    </div>
+                                </div>
+                                @if (Auth::check())
+                                    <div class="dd-link"><a href="#"><i class="bi bi-pencil-square"></i>
+                                            Profile</a>
+                                    </div>
+                                    <div class="dd-link"><a href="#"> <i class="bi bi-gear"></i> Settings</a>
+                                    </div>
+                                    <div class="dd-link"><a href="{{ route('logout') }}"><i
+                                                class="bi bi-door-closed"></i>
+                                            Sign out </a></div>
+                                @endif
+
+
                             </div>
 
                         </li>

@@ -57,4 +57,26 @@ class SiteHelper
             return true;
         });
     }
+
+    public function truncateText($text, $length = 100, $suffix = '...')
+    {
+        // Remove HTML tags
+        $cleanText = strip_tags($text);
+
+        // Trim whitespace and ensure the text isn't too short
+        if (strlen($cleanText) <= $length) {
+            return $cleanText;
+        }
+
+        // Truncate text safely without cutting words
+        $truncated = substr($cleanText, 0, $length);
+        $lastSpace = strrpos($truncated, ' ');
+
+        // Ensure it ends at a word boundary
+        if ($lastSpace !== false) {
+            $truncated = substr($truncated, 0, $lastSpace);
+        }
+
+        return $truncated . $suffix;
+    }
 }

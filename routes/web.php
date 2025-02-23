@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Models\Post;
 use GuzzleHttp\Client;
 use App\Models\Category;
@@ -13,13 +14,23 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\YouTubeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ClassificationController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EsusuController;
+use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\SettingController;
+use App\Http\Controllers\StockbrokerController;
+use App\Http\Controllers\StockController;
+use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Artisan;
 
 Auth::routes();
 
 Route::get('/reset-site', function () {})->name('reset-site');
+
+
+
 
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -120,5 +131,43 @@ Route::get('/youtube/playlist', [YouTubeController::class, 'fetchPlaylists'])->n
 Route::get('/youtube/trending', [YouTubeController::class, 'getTrendingVideos'])->name('youtube.trending');
 Route::get('/youtube/playlist/{id}', [YouTubeController::class, 'viewPlaylistVideos'])->name('youtube.playlist.view');
 // Route::get('/youtube/category/{id}', [YouTubeController::class, 'fetchVideosByCategory'])->name('youtube.index');
-// Route::get('/   ', [YouTubeController::class, 'fetchAllVideos']);
+// Route::get('/', [YouTubeController::class, 'fetchAllVideos']);
 Route::get('/youtube/video/{id}', [YouTubeController::class, 'showVideo'])->name('youtube.view');
+
+Route::prefix('/admin')->middleware('auth')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+
+
+    Route::prefix('/videos')->group(function () {
+        Route::get('/', [VideoController::class, 'index'])->name('admin.videos.index');
+        Route::get('/playlist', [VideoController::class, 'playlists'])->name('admin.videos.playlists');
+        Route::get('/trending', [VideoController::class, 'trending'])->name('admin.videos.trending');
+    });
+
+    Route::prefix('/blogs')->group(function () {
+        Route::get('/', [BlogController::class, 'index'])->name('admin.blog.index');
+        Route::get('/categories', [BlogController::class, 'categories'])->name('admin.blog.categories');
+        Route::post('/categories', [BlogController::class, 'store_category'])->name('admin.blog.categories.create');
+        Route::put('/categories/{id}', [BlogController::class, 'update_category'])->name('admin.blog.categories.update');
+        Route::get('/delete_category/{id}', [BlogController::class, 'delete_category'])->name('admin.blog.categories.delete');
+        Route::get('/create', [BlogController::class, 'create'])->name('admin.blog.create');
+        Route::post('/store', [BlogController::class, 'store'])->name('admin.blog.store');
+        Route::get('/{blog}', [BlogController::class, 'edit'])->name('admin.blog.edit');
+        Route::put('/{blog}', [BlogController::class, 'update'])->name('admin.blog.update');
+        Route::put('/{blog}/delete', [BlogController::class, 'delete'])->name('admin.blog.delete');
+    });
+
+
+    Route::get('/stock-dashboard', [StockController::class, 'dashboard'])->name('admin.stock-dashboard');
+    Route::get('/stock-upload', [StockController::class, 'upload'])->name('admin.stock-upload');
+    Route::get('/portfolio', [PortfolioController::class, 'index'])->name('admin.portfolio.index');
+    Route::get('/stockbrokers', [StockbrokerController::class, 'index'])->name('admin.stockbrokers.index');
+    Route::get('/esusu', [EsusuController::class, 'index'])->name('admin.esusu.index');
+    Route::get('/esusu-groups', [EsusuController::class, 'group'])->name('admin.esusu-groups');
+    Route::get('/esusu-data-upload', [EsusuController::class, 'upload'])->name('admin.esusu-data-upload');
+    Route::get('/admin/profile', [SettingController::class, 'index'])->name('admin.settings');
+});
+
+
+// Route::get('/admin/profile', [UserController::class, 'profile'])->name('admin.profile');
+// Route::get('/admin/logout', [AuthController::class, 'logout'])->name('admin.logout');

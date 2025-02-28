@@ -51,7 +51,7 @@
 
         <!-- Stock Analysis -->
         <li class="nav-item sidebar-category">
-            <p> Stock Analysis</p>
+            <p> Stock Management </p>
             <span></span>
         </li>
         <li class="nav-item">
@@ -62,14 +62,37 @@
             </a>
             <div class="collapse" id="stockAnalysisMenu">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"><a class="nav-link" href="#">Daily Analytics</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Weekly Analytics</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Monthly Analytics</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Quarterly & Yearly</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Custom Filters</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
+                    {{-- <li class="nav-item"><a class="nav-link" href="#">Analytics</a></li> --}}
+                    <li class="nav-item"><a class="nav-link" href="#">PowerBi Workspace</a></li>
+
                 </ul>
             </div>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#stockPortfolioMenu" aria-expanded="false">
+                <i class="mdi mdi-folder menu-icon"></i>
+                <span class="menu-title">Stock Portfolio</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="stockPortfolioMenu">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
+
+
+                </ul>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.stockbrokers.index') }}">
+                <i class="mdi mdi-bank menu-icon"></i>
+                <span class="menu-title">Stockbrokers List</span>
+            </a>
+        </li>
+
+
 
         <!-- Portfolio Management -->
         <li class="nav-item sidebar-category">
@@ -84,18 +107,7 @@
             </a>
         </li>
 
-        <!-- Stockbroker Directory -->
-        <li class="nav-item sidebar-category">
-            <p>Stockbroker Directory</p>
-            <span></span>
-        </li>
 
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.stockbrokers.index') }}">
-                <i class="mdi mdi-bank menu-icon"></i>
-                <span class="menu-title">Stockbrokers List</span>
-            </a>
-        </li>
 
         <!-- Esusu Management -->
         <li class="nav-item sidebar-category">

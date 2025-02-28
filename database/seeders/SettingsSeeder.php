@@ -33,6 +33,8 @@ class SettingsSeeder extends Seeder
             ['key' => 'facebook_url', 'value' => ''],
             ['key' => 'twitter_url', 'value' => ''],
             ['key' => 'site_logo', 'value' => '/assets/img/logo.png'],
+            ['key' => 'youtube_api_key', 'value' => env('YOUTUBE_API_KEY')],
+            ['key' => 'youtube_channel_id', 'value' => env('YOUTUBE_CHANNEL_ID')],
         ];
 
         foreach ($settings as $setting) {

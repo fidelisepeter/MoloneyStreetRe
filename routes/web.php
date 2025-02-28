@@ -27,7 +27,21 @@ use Illuminate\Support\Facades\Artisan;
 
 Auth::routes();
 
-Route::get('/reset-site', function () {})->name('reset-site');
+Route::get('/reset-site', function () {
+
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    Artisan::call('view:clear');
+    Artisan::call('route:clear');
+
+    //remember to change env to local, to avoid 'STDIN' constant error
+
+    Artisan::call('migrate:refresh', [
+        '--seed' => true
+    ]);
+
+    return redirect('/login')->with('success', 'Site reset successfully');
+})->name('reset-site');
 
 
 
@@ -156,6 +170,21 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
         Route::put('/{blog}', [BlogController::class, 'update'])->name('admin.blog.update');
         Route::put('/{blog}/delete', [BlogController::class, 'delete'])->name('admin.blog.delete');
     });
+
+
+    Route::prefix('/stock')->group(function () {
+        Route::get('/', [StockController::class, 'index'])->name('admin.stock.index');
+        Route::get('/brokers', [StockController::class, 'brokers'])->name('admin.stock.brokers');
+        Route::get('/analysis', [StockController::class, 'analysis'])->name('admin.stock.analysis');
+        Route::get('/analysis/{id}', [StockController::class, 'analysis_view'])->name('admin.stock.analysis.view');
+    });
+
+
+    // Route::prefix('/portfolio')->group(function () {
+    //     Route::get('/', [PortfolioController::class, 'index'])->name('admin.portfolio.index');
+    //     Route::get('/create', [PortfolioController::class, 'create'])->name('admin.portfolio.create');
+    //     Route::post('/store', [PortfolioController::class, 'store'])->name('admin.portfolio.store');
+    // });
 
 
     Route::get('/stock-dashboard', [StockController::class, 'dashboard'])->name('admin.stock-dashboard');

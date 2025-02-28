@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -36,5 +37,19 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
         $this->middleware('auth')->only('logout');
+    }
+
+    /**
+     * Redirect users after login based on their user type
+     */
+    public function redirectTo()
+    {
+        $user = Auth::user();
+
+        if (in_array($user->type, ['admin', 'super_admin', 'staff'])) {
+            return '/admin/dashboard';
+        } else {
+            return '/dashboard'; // or route('user.dashboard')
+        }
     }
 }
